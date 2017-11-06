@@ -1,0 +1,26 @@
+FROM fedora:27
+MAINTAINER Joe Doss <joe@solidadmin.com
+
+ENV TERM="xterm" LC_ALL="en_US.UTF-8" LANG="en_US.UTF-8" \
+PLEX_MEDIA_SERVER_VERSION=1.9.6.4401-53fa66811 \
+PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="/config" \
+PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_FILE="${PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR}/Plex Media Server/Preferences.xml" \
+PLEX_MEDIA_SERVER_HOME="/usr/lib/plexmediaserver" \
+PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=6 \
+PLEX_MEDIA_SERVER_TMPDIR="/tmp" \
+PLEX_MEDIA_SERVER_INFO_DEVICE="docker" \
+LD_LIBRARY_PATH="/usr/lib/plexmediaserver"
+
+RUN dnf update -y
+RUN mkdir -p /config /transcode /data "${PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR}" "$(dirname "${PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_FILE}")"
+RUN dnf install https://downloads.plex.tv/plex-media-server/${PLEX_MEDIA_SERVER_VERSION}/plexmediaserver-${PLEX_MEDIA_SERVER_VERSION}.x86_64.rpm -y
+
+EXPOSE 32400/tcp 3005/tcp 8324/tcp 32469/tcp 1900/udp 32410/udp 32412/udp 32413/udp 32414/udp
+VOLUME /config /transcode
+
+ENV CHANGE_CONFIG_DIR_OWNERSHIP="true" HOME="/config"
+
+CMD [ "/bin/sh", "-c", "'/usr/lib/plexmediaserver/Plex Media Server'" ]
+
+
+
