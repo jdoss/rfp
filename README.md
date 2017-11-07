@@ -30,9 +30,9 @@ https://localhost:32400
 
 ### Ports
 
-Forward these ports from your router to `49164`, `6881` for torrents and `32400` for Plex if you want to allow outside access to your media. Run the command below if you are are running these containers on a distro that uses firewalld. Good luck, have fun.
+Forward these ports from your router to `49264`, `6881` for torrents and `32400` for Plex if you want to allow outside access to your media. Run the command below if you are are running these containers on a distro that uses firewalld. Good luck, have fun.
 
-`sudo firewall-cmd --zone=FedoraServer --add-port=32400/tcp --add-port=3005/tcp --add-port=8324/tcp --add-port=32469/tcp --add-port=1900/udp --add-port=32410/udp --add-port=32412/udp --add-port=32413/udp --add-port=32414/udp --add-port=6881/tcp --add-port=6881/udp --add-port=49164/tcp --add-port=49164/udp`
+`sudo firewall-cmd --zone=FedoraServer --add-port=32400/tcp --add-port=3005/tcp --add-port=8324/tcp --add-port=32469/tcp --add-port=1900/udp --add-port=32410/udp --add-port=32412/udp --add-port=32413/udp --add-port=32414/udp --add-port=6881/tcp --add-port=6881/udp --add-port=49264/tcp --add-port=49264/udp`
 
 
 ## Todo
