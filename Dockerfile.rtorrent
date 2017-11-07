@@ -1,12 +1,12 @@
 FROM fedora:27
 MAINTAINER Joe Doss <joe@solidadmin.com
 
-RUN dnf update -y && dnf install rtorrent -y && dnf clean all && mkdir /root/session
+RUN dnf update -y && dnf install rtorrent -y && dnf clean all && mkdir -p /data/sessions /data/torrents /data/downloads
 
 COPY files/rtorrent.rc /root/.rtorrent.rc
 
 EXPOSE 49164 6881
 
-VOLUME ["/data/complete", "/data/incomplete", "/data/watch", "/data/added", "/data/downloads", "/data/torrents"]
+VOLUME ["/data/sessions", "/data/torrents", '/data/downloads']
 
 CMD  ["rtorrent"]

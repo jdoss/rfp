@@ -1,6 +1,5 @@
 version: '2'
 services:
-
   rtorrent:
     image: rfp-rtorrent
     working_dir: /root
@@ -10,7 +9,9 @@ services:
       - "49164:49164"
       - "6881:6881"
     volumes:
-      - ./data:/data:Z
+      - ./data/rtorrent/downloads:/data/downloads:Z
+      - ./data/rtorrent/sessions:/data/sessions:Z
+      - ./data/rtorrent/torrents:/data/torrents:Z
     tty: true
   flood:
     image: rfp-flood
@@ -22,7 +23,7 @@ services:
     links:
      - rtorrent
     volumes:
-      - ./data:/data:Z
+      - ./data/flood:/data/flood:Z
     environment:
       - FLOOD_SECRET=supersecretlikewoah
       - RTORRENT_SCGI_HOST=rtorrent
@@ -35,6 +36,10 @@ services:
       - TZ=CST
       - PLEX_MEDIA_SERVER_VERSION=1.9.6.4401-53fa66811
     volumes:
-      - ./plex/config:/config:Z
-      - ./plex/transcode:/transcode:Z
-      - ./data:/data:Z
+      - ./data/plex/config:/data/config:Z
+      - ./data/plex/transcode:/data/transcode:Z
+      - ./data/plex/media:/data/media:Z
+volumes:
+    rtorrent:
+    flood:
+    plex:

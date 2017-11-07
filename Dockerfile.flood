@@ -4,10 +4,10 @@ MAINTAINER Joe Doss <joe@solidadmin.com
 RUN dnf update -y && dnf install nodejs npm git mediainfo -y && dnf clean all
 RUN git clone https://github.com/jfurrow/flood.git /usr/src/flood
 WORKDIR /usr/src/flood
-RUN cp config.docker.js config.js
+RUN cp config.docker.js config.js && sed -i "s|/data/|/data/flood/|g" config.js && mkdir -p /data/flood
 RUN npm install && npm run build && npm cache clean --force
 
 EXPOSE 3000
-VOLUME ["/data"]
+VOLUME ["/data/flood"]
 
 CMD [ "npm", "start" ]
