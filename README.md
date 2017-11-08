@@ -4,17 +4,24 @@ RFP is a quick and dirty media stack built on Docker. It comes with [rtorrent](h
 
 ## Quick Start
 
-Build local docker images:
+Set some environment vars (run once):
 
 ```
-docker build -t rfp-flood -f Dockerfile.flood .
-docker build -t rfp-rtorrent -f Dockerfile.rtorrent .
-docker build -t rfp-plex -f Dockerfile.plex .
+echo "TZ=$(date +%Z)" > .env
+echo "FLOOD_SECRET=$(uuidgen)" >> .env
 ```
 
 Start RFP:
 
-` docker-compose up -d`
+```
+docker-compose up -d
+```
+
+### Ports
+
+Forward these ports from your router to `49264`, `6881` for torrents and `32400` for Plex if you want to allow outside access to your media. Run the command below if you are are running these containers on a distro that uses firewalld.
+
+`sudo firewall-cmd --zone=FedoraServer --add-port=32400/tcp --add-port=3005/tcp --add-port=8324/tcp --add-port=32469/tcp --add-port=1900/udp --add-port=32410/udp --add-port=32412/udp --add-port=32413/udp --add-port=32414/udp --add-port=6881/tcp --add-port=6881/udp --add-port=49264/tcp --add-port=49264/udp`
 
 ### Remote Server
 
@@ -25,19 +32,33 @@ Start RFP:
 
 ### Finish Setup
 
+Replace `192.168.1.55` in the link below with your remote server's IP address and finish the server [setup](https://support.plex.tv/hc/en-us/articles/200264746-Quick-Start-Step-by-Step-Guides).
+
 https://192.168.1.55:32400
 
-### Ports
+Good luck, have fun.
 
-Forward these ports from your router to `49264`, `6881` for torrents and `32400` for Plex if you want to allow outside access to your media. Run the command below if you are are running these containers on a distro that uses firewalld. Good luck, have fun.
+## Build Local Images
 
-`sudo firewall-cmd --zone=FedoraServer --add-port=32400/tcp --add-port=3005/tcp --add-port=8324/tcp --add-port=32469/tcp --add-port=1900/udp --add-port=32410/udp --add-port=32412/udp --add-port=32413/udp --add-port=32414/udp --add-port=6881/tcp --add-port=6881/udp --add-port=49264/tcp --add-port=49264/udp`
-
+```
+docker build -t flood -f Dockerfile.flood .
+docker build -t rtorrent -f Dockerfile.rtorrent .
+docker build -t plex -f Dockerfile.plex .
+```
 
 ## Todo
 
 * Give these processes some sort of proper init.
 * Figure out how to to pass a Plex claim token at the initial startup to skip SSH tunnel step.
+* Put Nginx into the mix so this can be run on an internet facing server.
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-cool-feature`)
+3. Commit your changes (`git commit -m 'Add a cool feature'`)
+4. Push to the branch (`git push origin my-cool-feature`)
+5. Create new Pull Request
 
 ## License
 
