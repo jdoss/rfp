@@ -16,17 +16,16 @@ Start RFP:
 
 ` docker-compose up -d`
 
-### Finish Setup
-
-https://localhost:32400
-
-
 ### Remote Server
 
-1. Open a Terminal window or your command prompt
-2. Enter the following command
+1. Open a Terminal window or your command prompt.
+2. Enter the following command and replace `192.168.1.55` with your remote server's IP address.
 3. `ssh 192.168.1.55 -L 8888:localhost:32400`
 4. Goto http://localhost:8888/web and enable remote access to finish the setup.
+
+### Finish Setup
+
+https://192.168.1.55:32400
 
 ### Ports
 
