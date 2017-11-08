@@ -1,7 +1,7 @@
 version: '2'
 services:
   rtorrent:
-    image: rfp-rtorrent
+    image: jdoss/rtorrent
     working_dir: /root
     hostname: rtorrent
     restart: unless-stopped
@@ -14,7 +14,7 @@ services:
       - ./data/rtorrent/torrents:/data/torrents:Z
     tty: true
   flood:
-    image: rfp-flood
+    image: jdoss/flood
     working_dir: /usr/src/flood
     hostname: flood
     restart: unless-stopped
@@ -25,16 +25,15 @@ services:
     volumes:
       - ./data/flood:/data/flood:Z
     environment:
-      - FLOOD_SECRET=supersecretlikewoah
+      - FLOOD_SECRET
       - RTORRENT_SCGI_HOST=rtorrent
   plex:
-    image: rfp-plex
+    image: jdoss/plex
     hostname: plex
     restart: unless-stopped
     network_mode: host
     environment:
-      - TZ=CST
-      - PLEX_MEDIA_SERVER_VERSION=1.9.6.4401-53fa66811
+      - TZ
     volumes:
       - ./data/plex/config:/data/config:Z
       - ./data/plex/transcode:/data/transcode:Z
