@@ -6,7 +6,7 @@ services:
     hostname: rtorrent
     restart: unless-stopped
     ports:
-      - "49164:49164"
+      - "49264:49264"
       - "6881:6881"
     volumes:
       - ./data/rtorrent/downloads:/data/downloads:Z
