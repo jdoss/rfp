@@ -1,5 +1,5 @@
 FROM fedora:27
-MAINTAINER Joe Doss <joe@solidadmin.com
+MAINTAINER Joe Doss <joe@solidadmin.com>
 
 RUN dnf update -y && dnf install nodejs npm git mediainfo -y && dnf clean all
 RUN git clone https://github.com/jfurrow/flood.git /usr/src/flood
